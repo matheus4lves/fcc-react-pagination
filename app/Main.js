@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./styles.css";
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept("./Main.js");
 }
 
 class App extends React.Component {
