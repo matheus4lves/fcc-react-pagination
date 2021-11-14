@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import ReactDOM from "react-dom";
 import Pagination from "./components/Pagination";
-import data from "./mock-data.json";
+import generateUsers from "./data/generateUsers";
 import "./styles/styles.scss";
 
 if (module.hot) {
@@ -9,6 +9,7 @@ if (module.hot) {
 }
 
 let PageSize = 10;
+let data = generateUsers();
 
 function Main() {
   const [currentPage, setCurrentPage] = useState(1);
