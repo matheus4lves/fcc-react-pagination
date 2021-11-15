@@ -1,6 +1,7 @@
 import faker from "faker";
 
 faker.locale = "pt_BR";
+faker.seed(1);
 
 export default function generateUsers() {
   let users = [];
