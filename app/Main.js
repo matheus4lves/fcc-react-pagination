@@ -1,17 +1,11 @@
 import React, { useState, useMemo } from "react";
-import ReactDOM from "react-dom";
 import Pagination from "./components/Pagination";
 import generateUsers from "./data/generateUsers";
-import "./styles/styles.scss";
-
-if (module.hot) {
-  module.hot.accept("./Main.js");
-}
 
 let PageSize = 10;
 let data = generateUsers();
 
-function Main() {
+export default function Main() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
@@ -37,8 +31,8 @@ function Main() {
             return (
               <tr key={idx}>
                 <td>{item.id}</td>
-                <td>{item.first_name}</td>
-                <td>{item.last_name}</td>
+                <td>{item.firstName}</td>
+                <td>{item.lastName}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
               </tr>
@@ -50,5 +44,3 @@ function Main() {
     </>
   );
 }
-
-ReactDOM.render(<Main />, document.getElementById("app"));

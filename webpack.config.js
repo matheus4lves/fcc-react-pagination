@@ -1,23 +1,29 @@
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const isDevelopment = process.env.NODE_ENV !== "production";
 const path = require("path");
 
 module.exports = {
-  entry: "./app/Main.js",
+  entry: "./app/index.js",
   output: {
     publicPath: "/",
     path: path.resolve(__dirname, "app"),
     filename: "bundle.js",
   },
+  mode: isDevelopment ? "development" : "production",
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-react", ["@babel/preset-env", { targets: { node: "14" } }]],
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: require.resolve("babel-loader"),
+            options: {
+              presets: ["@babel/preset-react", ["@babel/preset-env", { targets: { node: "14" } }]],
+              plugins: [isDevelopment && require.resolve("react-refresh/babel")].filter(Boolean),
+            },
           },
-        },
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
@@ -32,9 +38,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [isDevelopment && new ReactRefreshWebpackPlugin()].filter(Boolean),
   devServer: {
     host: "local-ip",
     hot: true,
+    liveReload: false,
     port: 3000,
     open: {
       app: {
@@ -46,6 +54,5 @@ module.exports = {
       directory: path.join(__dirname, "app"),
     },
   },
-  mode: "development",
   devtool: "eval-source-map",
 };
